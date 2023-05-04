@@ -1,0 +1,2 @@
+javac ScheduledTest.java
+java ScheduledTest

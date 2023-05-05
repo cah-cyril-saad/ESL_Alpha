@@ -1,3 +1,5 @@
+package main.java.wavemark;
+
 public enum RequisitionStatus {
     NEW,
     RELEASED,

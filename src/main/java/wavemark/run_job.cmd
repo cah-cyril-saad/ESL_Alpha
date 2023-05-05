@@ -1,0 +1,1 @@
+java -cp C:\Development\Wavemark\EslResearchAndDevelopment\lib\*;C:\Development\Wavemark\EslResearchAndDevelopment\* C:\Development\Wavemark\EslResearchAndDevelopment\out\production\ESLBulkUpdateTags.class

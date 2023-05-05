@@ -1,3 +1,5 @@
+package main.java.wavemark;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
@@ -17,7 +19,7 @@ public class EntityTranslator {
         result.setDisplayBinSetNumber(resolveDisplayBinSetNumber(product.getBinsetNumber()));
         result.setQuantity(product.getLogum());
         result.setModelNumber(product.getModelNumber());
-        result.setBinSetFlg(product.getBinsetFlag());
+        result.setBinSetFlg(resolveBinSetFlag(product.getBinsetFlag()));
         result.setOrderStatusBinA(resolveOrderBinStatus(product.getBins()[0]));
         result.setOrderStatusBinB(resolveOrderBinStatus(product.getBins()[1]));
         result.setOrderDateBinA(resolveDisplayDate(product.getBins()[0]));
@@ -25,6 +27,10 @@ public class EntityTranslator {
         result.setOutOfStockFlg(resolveOutOfStockFlag(product.getBins()));
         result.setDisplayAlert(resolveDisplayAlert(result.isOutOfStockFlg()));
         return result;
+    }
+    
+    private static String resolveBinSetFlag(int binsetFlag) {
+        return binsetFlag == 0 ? "2BK" : "1BK";
     }
     
     public static ESLProduct[] translateFromAppToESL(AppProduct[] products) {
@@ -65,14 +71,14 @@ public class EntityTranslator {
     
     private static String resolveDisplayDate(Bin bin) {
         String date = "";
-        if (bin.getState().equals(RequisitionStatus.ORDERED.toString())) {
+//        if (bin.getRequisitionStatus().equals(RequisitionStatus.ORDERED.toString())) {
             String dateString = bin.getRequisitionDate();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
             LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
             // Convert the date time object to a different format
-            formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+            formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             date = dateTime.format(formatter);
-        }
+//        }
         
         return date;
     }
@@ -106,7 +112,7 @@ public class EntityTranslator {
         
         ObjectMapper mapper = new ObjectMapper();
         
-        return "[" + mapper.writeValueAsString(remoteEslProduct) + "]";
+        return mapper.writeValueAsString(remoteEslProduct);
         
         
     }

@@ -1,3 +1,5 @@
+package main.java.wavemark;
+
 /**
  * @author nawar.khoury
  */

@@ -1,3 +1,5 @@
+package main.java.wavemark;
+
 public class ESLProduct {
     
     boolean outOfStockFlg;

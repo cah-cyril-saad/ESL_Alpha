@@ -1,3 +1,5 @@
+package main.java.wavemark;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

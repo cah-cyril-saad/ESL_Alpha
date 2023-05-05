@@ -2,22 +2,22 @@
   {
     "itemMasterNumber": "1059145",
     "modelNumber": "133800",
-    "productDescription": "Testing changes",
+    "productDescription": "Item #1",
     "endpointProductName": "KIT MICRO-SAMPLE TEST 500 TIPS/CLEANERS AND PLUNGER WIRE",
     "binsetNumber": "BMC0007632",
     "logum": 1,
-    "binsetFlag": "2BK",
+    "binsetFlag": 0,
     "bins": [
       {
-        "state": "SUBMITTED",
+        "state": "EMPTY",
         "requisitionDate": "2023-04-06T10:02:20Z",
-        "requisitionProductStatus": "",
+        "requisitionProductStatus": "OPEN",
         "requisitionProductPo": "TES",
         "binSerialNumber": "BMC0007632A",
-        "requisitionStatus": "BACKORDERED"
+        "requisitionStatus": "OPEN"
       },
       {
-        "state": "ORDERED",
+        "state": "FILLED",
         "requisitionDate": "2021-09-21T13:58:54Z",
         "requisitionProductStatus": "BACKORDERED",
         "requisitionProductPo": "Test",
@@ -25,16 +25,16 @@
         "requisitionStatus": "OPEN"
       }
     ],
-    "status": "OPEN"
+    "status": "ORDERED"
   },
   {
     "itemMasterNumber": "1033999",
     "modelNumber": "1527S-1",
-    "productDescription": "Hi Rabih <3",
+    "productDescription": "Item #2",
     "endpointProductName": "TAPE TRANSPORE 2.54CMx1.3716M OCCLUSIVE TRANSP WATERPRF",
     "binsetNumber": "BMC0002863",
     "logum": 127,
-    "binsetFlag": "2BK",
+    "binsetFlag": 2,
     "bins": [
       {
         "state": "FILLED",

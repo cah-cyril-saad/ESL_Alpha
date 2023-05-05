@@ -1,3 +1,5 @@
+package main.java.wavemark;
+
 import java.util.HashMap;
 import java.util.Map;
 

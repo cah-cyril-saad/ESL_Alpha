@@ -1,3 +1,5 @@
+package main.java.wavemark;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class OrderBinStatusFactory {

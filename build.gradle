@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    implementation fileTree (dir:'lib', include:'*.jar')
+}
+
+//jar {
+//    manifest {
+//        attributes(
+//                'Main-Class': 'EslResearchAndDevelopment.src.ESLBulkUpdateTags'
+//        )
+//    }
+//}

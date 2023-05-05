@@ -1,3 +1,5 @@
+package main.java.wavemark;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Arrays;
 
@@ -10,14 +12,14 @@ public class AppProduct {
     private String endpointProductName;
     private String binsetNumber;
     private int logum;
-    private String binsetFlag;
+    private int binsetFlag;
     private String status;
     private Bin[] bins;
     
     public AppProduct() {
     }
     
-    public AppProduct(String itemMasterNumber, String modelNumber, String productDescription, String endpointProductName, String binsetNumber, int logum, String binsetFlag, Bin[] bins, String status) {
+    public AppProduct(String itemMasterNumber, String modelNumber, String productDescription, String endpointProductName, String binsetNumber, int logum, int binsetFlag, Bin[] bins, String status) {
         this.itemMasterNumber = itemMasterNumber;
         this.modelNumber = modelNumber;
         this.productDescription = productDescription;
@@ -90,11 +92,11 @@ public class AppProduct {
         this.logum = logum;
     }
     
-    public String getBinsetFlag() {
+    public int getBinsetFlag() {
         return binsetFlag;
     }
     
-    public void setBinsetFlag(String binsetFlag) {
+    public void setBinsetFlag(int binsetFlag) {
         this.binsetFlag = binsetFlag;
     }
     

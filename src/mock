@@ -1,55 +1,111 @@
 ﻿[
   {
-    "itemMasterNumber": "1059145",
-    "modelNumber": "133800",
-    "productDescription": "Item #1",
-    "endpointProductName": "KIT MICRO-SAMPLE TEST 500 TIPS/CLEANERS AND PLUNGER WIRE",
-    "binsetNumber": "BMC0007632",
-    "logum": 1,
+    "itemMasterNumber": "1001512",
+    "modelNumber": "2B0062Q",
+    "productDescription": "SOLUTION D5% 250CC",
+    "endpointProductName": "",
+    "binsetNumber": "MMRN000298",
+    "logum": 2,
     "binsetFlag": 0,
     "bins": [
       {
-        "state": "EMPTY",
-        "requisitionDate": "2023-04-06T10:02:20Z",
-        "requisitionProductStatus": "OPEN",
-        "requisitionProductPo": "TES",
-        "binSerialNumber": "BMC0007632A",
-        "requisitionStatus": "OPEN"
-      },
-      {
         "state": "FILLED",
-        "requisitionDate": "2021-09-21T13:58:54Z",
-        "requisitionProductStatus": "BACKORDERED",
-        "requisitionProductPo": "Test",
-        "binSerialNumber": "BMC0007632B",
-        "requisitionStatus": "OPEN"
-      }
-    ],
-    "status": "ORDERED"
-  },
-  {
-    "itemMasterNumber": "1033999",
-    "modelNumber": "1527S-1",
-    "productDescription": "Item #2",
-    "endpointProductName": "TAPE TRANSPORE 2.54CMx1.3716M OCCLUSIVE TRANSP WATERPRF",
-    "binsetNumber": "BMC0002863",
-    "logum": 127,
-    "binsetFlag": 2,
-    "bins": [
-      {
-        "state": "FILLED",
-        "requisitionDate": "2023-01-17T14:16:24Z",
+        "requisitionDate": "2022-03-29T12:47:15Z",
         "requisitionProductStatus": "COMPLETED",
-        "requisitionProductPo": null,
-        "binSerialNumber": "BMC0002863B",
+        "requisitionProductPo": "CCF22209652",
+        "binSerialNumber": "MMRN000298B",
         "requisitionStatus": "COMPLETED"
       },
       {
         "state": "FILLED",
-        "requisitionDate": "2023-02-14T07:32:43Z",
+        "requisitionDate": "2022-03-29T12:47:15Z",
         "requisitionProductStatus": "COMPLETED",
+        "requisitionProductPo": "CCF22209652",
+        "binSerialNumber": "MMRN000298A",
+        "requisitionStatus": "COMPLETED"
+      }
+    ],
+    "status": "ACTIVE"
+  },
+  {
+    "itemMasterNumber": "1001506",
+    "modelNumber": "2B1323Q",
+    "productDescription": "SOLUTION NACL 0.9% 500CC",
+    "endpointProductName": "SOLUTION VIAFLEX 0.9% SODIUM CHLORIDE INTRAVENOUS INJECTION 500ML",
+    "binsetNumber": "MMRN000295",
+    "logum": 10,
+    "binsetFlag": 0,
+    "bins": [
+      {
+        "state": "FILLED",
+        "requisitionDate": "2023-04-29T12:26:36Z",
+        "requisitionProductStatus": "COMPLETED",
+        "requisitionProductPo": "CCF23407710",
+        "binSerialNumber": "MMRN000295A",
+        "requisitionStatus": "COMPLETED"
+      },
+      {
+        "state": "FILLED",
+        "requisitionDate": "2023-04-26T12:32:04Z",
+        "requisitionProductStatus": "COMPLETED",
+        "requisitionProductPo": "CCF23397646",
+        "binSerialNumber": "MMRN000295B",
+        "requisitionStatus": "COMPLETED"
+      }
+    ],
+    "status": "ACTIVE"
+  },
+  {
+    "itemMasterNumber": "1001507",
+    "modelNumber": "2B1323Q",
+    "productDescription": "SOLUTION NACL 0.9% 500CC",
+    "endpointProductName": "SOLUTION VIAFLEX 0.9% SODIUM CHLORIDE INTRAVENOUS INJECTION 500ML",
+    "binsetNumber": "MMRN000296",
+    "logum": 10,
+    "binsetFlag": 0,
+    "bins": [
+      {
+        "state": "FILLED",
+        "requisitionDate": "2023-01-19T07:17:07Z",
+        "requisitionProductStatus": "COMPLETED",
+        "requisitionProductPo": "CCF23061020",
+        "binSerialNumber": "MMRN000296B",
+        "requisitionStatus": "COMPLETED"
+      },
+      {
+        "state": "FILLED",
+        "requisitionDate": "2023-01-12T12:29:10Z",
+        "requisitionProductStatus": "COMPLETED",
+        "requisitionProductPo": "CCF23039517",
+        "binSerialNumber": "MMRN000296A",
+        "requisitionStatus": "COMPLETED"
+      }
+    ],
+    "status": "ACTIVE"
+  },
+  {
+    "itemMasterNumber": "1003236",
+    "modelNumber": "1538-1",
+    "productDescription": "Durapore Tape 1in x 10yd Silk",
+    "endpointProductName": "TAPE DURAPORE STANDARD WHITE SILK POROUS 10YDX1IN DRESSING ADHERENT",
+    "binsetNumber": "MMRN000725",
+    "logum": 15,
+    "binsetFlag": 0,
+    "bins": [
+      {
+        "state": "EMPTY",
+        "requisitionDate": "2023-05-11T04:15:39Z",
+        "requisitionProductStatus": "OPEN",
         "requisitionProductPo": null,
-        "binSerialNumber": "BMC0002863A",
+        "binSerialNumber": "MMRN000725A",
+        "requisitionStatus": "RELEASED"
+      },
+      {
+        "state": "FILLED",
+        "requisitionDate": "2023-05-01T12:16:19Z",
+        "requisitionProductStatus": "COMPLETED",
+        "requisitionProductPo": "CCF23411600",
+        "binSerialNumber": "MMRN000725B",
         "requisitionStatus": "COMPLETED"
       }
     ],

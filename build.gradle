@@ -6,10 +6,8 @@ dependencies {
     implementation fileTree (dir:'lib', include:'*.jar')
 }
 
-//jar {
-//    manifest {
-//        attributes(
-//                'Main-Class': 'EslResearchAndDevelopment.src.ESLBulkUpdateTags'
-//        )
-//    }
-//}
+jar {
+    manifest {
+        archiveFileName.set("ESL_A.1.0.jar") // .jar name: name.ja
+    }
+}

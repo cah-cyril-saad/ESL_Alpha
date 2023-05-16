@@ -1,6 +1,5 @@
 package main.java.wavemark.entities;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class EslRemoteEntity {

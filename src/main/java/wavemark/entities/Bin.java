@@ -73,4 +73,15 @@ public class Bin {
     public void setBinSerialnumber(String binSerialnumber) {
         this.binSerialnumber = binSerialnumber;
     }
+    
+    @Override public String toString() {
+        return "Bin{" +
+               "requisitionStatus='" + requisitionStatus + '\'' +
+               ", state='" + state + '\'' +
+               ", requisitionDate='" + requisitionDate + '\'' +
+               ", requisitionProductStatus='" + requisitionProductStatus + '\'' +
+               ", requisitionProductPo='" + requisitionProductPo + '\'' +
+               ", binSerialnumber='" + binSerialnumber + '\'' +
+               '}';
+    }
 }

@@ -8,7 +8,7 @@ public class Directories {
     public static final String CIMSHUB_HOME = System.getenv("CIMSHUB_HOME");
     public static final String WILDFLY_HOME = System.getenv("JBOSS_HOME") != null ? System.getenv("JBOSS_HOME")
                                                   : CIMSHUB_HOME + "/../wildfly-21.0.2.Final";
-    
+    public static final String WILDFLYLOGS = WILDFLY_HOME + "/standalone/log";
     public static final String LOOKUP = CIMSHUB_HOME + "/lookup";
     public static final String LOGS = CIMSHUB_HOME + "/logs";
     public static final String CONFIG_TEMPLATES = CIMSHUB_HOME + "/config_templates";
@@ -26,5 +26,4 @@ public class Directories {
     public static final String SETTINGS = CIMSHUB_HOME + "/settings";
     public static final String TRANSMIT = CIMSHUB_HOME + "/transmit";
     public static final String AGENT = CIMSHUB_HOME + "/../Agent";
-    public static final String WILDFLYLOGS = WILDFLY_HOME + "/standalone/log";
 }

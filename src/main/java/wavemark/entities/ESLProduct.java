@@ -176,4 +176,26 @@ public class ESLProduct {
     public void setBinSetFlg(String binSetFlg) {
         this.binSetFlg = binSetFlg;
     }
+    
+    @Override public String toString() {
+        return "ESLProduct{" +
+               "outOfStockFlg=" + outOfStockFlg +
+               ", expiryRiskFlg=" + expiryRiskFlg +
+               ", expirationFlg=" + expirationFlg +
+               ", binSetStatus='" + binSetStatus + '\'' +
+               ", itemMasterNumber='" + itemMasterNumber + '\'' +
+               ", productDescription='" + productDescription + '\'' +
+               ", binSetNumber='" + binSetNumber + '\'' +
+               ", displayBinSetNumber=" + displayBinSetNumber +
+               ", quantity=" + quantity +
+               ", modelNumber='" + modelNumber + '\'' +
+               ", orderStatusBinA='" + orderStatusBinA + '\'' +
+               ", orderDateBinA='" + orderDateBinA + '\'' +
+               ", orderDateBinB='" + orderDateBinB + '\'' +
+               ", orderStatusBinB='" + orderStatusBinB + '\'' +
+               ", displayAlert='" + displayAlert + '\'' +
+               ", displaySingleBinBarcode='" + displaySingleBinBarcode + '\'' +
+               ", binSetFlg='" + binSetFlg + '\'' +
+               '}';
+    }
 }

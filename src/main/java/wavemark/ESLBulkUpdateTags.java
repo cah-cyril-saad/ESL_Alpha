@@ -3,7 +3,11 @@ package main.java.wavemark;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wavemark.wmrestlib.authenticator.WardenTokenProvider;
 import java.awt.AWTException;
+import java.awt.Robot;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,9 +16,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -28,10 +34,12 @@ import org.apache.commons.lang3.StringUtils;
 
 public class ESLBulkUpdateTags {
     
+    public static HashMap<String, ESLProduct> cache = new HashMap<>();
     
     private static void initWardenAuthenticationSettings() throws Exception {
         WardenTokenProvider.getInstance().initializeWardenTokenConfigurations("InterfaceDevice", "QUer775N4nVNDrn9G9ty8K8Ht45XrfjSUaWfT9f9", "https://testonline.wavemark.net", "ESL101", "42:01:0A:33:23:57");
         WardenTokenProvider.getInstance().refreshWardenToken();
+        System.out.println(WardenTokenProvider.getInstance().getAccessToken());
     }
     
     private static String getCurrentDate() {
@@ -62,9 +70,11 @@ public class ESLBulkUpdateTags {
     }
     
     public static void main(String[] args) throws IOException, SQLException, AWTException, InterruptedException {
-        Logger logger = Logger.getLogger("MyLog");
-        FileHandler fh;
+        Logger logger;
         
+        logger = Logger.getLogger("MyLog");
+        FileHandler fh;
+        String datePath = System.getenv("ESL_HOME") + "/date";
         try (Connection cnx = ConnectionManager.connect()) {
             fh = new FileHandler("esl.log");
             
@@ -72,11 +82,11 @@ public class ESLBulkUpdateTags {
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
             
-            logger.info("My first log");
+            logger.info("Starting ESL application...");
             cnx.setAutoCommit(true);
             ObjectMapper objectMapper = new ObjectMapper();
             initWardenAuthenticationSettings();
-            String date = readDateFromFile("src/main/java/wavemark/date");
+            String date = readDateFromFile(datePath);
             
             logger.info("Fetching all binsets from: " + date);
             String currDate = getCurrentDate();
@@ -86,17 +96,19 @@ public class ESLBulkUpdateTags {
             ESLProduct[] eslProducts = (EntityHandler.translateFromAppToESL(Arrays.asList(bins))).toArray(new ESLProduct[0]);
             
             Map<Boolean, List<ESLProduct>> existingProducts = EntityHandler.partitionByAvailabilityInDatabase(cnx, Arrays.asList(eslProducts));
-            DatabaseUtilities.persistNewProducts(cnx, existingProducts.get(false));
-            logger.info("Added " + existingProducts.get(false).size() + " new product(s).");
+            List<ESLProduct> newProducts = existingProducts.get(false);
+            List<ESLProduct> oldProducts = existingProducts.get(true);
             
-            List<ESLProduct> productsToUpdate = EntityHandler.getProductsToUpdate(cnx, existingProducts.get(true));
-            productsToUpdate.addAll(existingProducts.get(false));
+            DatabaseUtilities.persistNewProducts(cnx, newProducts);
+            logger.info("Added " + existingProducts.get(false).size() + " new product(s).");
+            List<ESLProduct> productsToUpdate = EntityHandler.getProductsToUpdate(cnx, oldProducts);
+            productsToUpdate.addAll(newProducts);
             DatabaseUtilities.updateExistingProducts(cnx, productsToUpdate);
             SolumWebservices.updateSolumProducts(productsToUpdate);
             logger.info("Uploading the binsets to Solum: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(productsToUpdate));
-            //            System.out.printf("Updated %s product(s) \n", productsToUpdate.size());
+            //System.out.printf("Updated %s product(s) \n", productsToUpdate.size());
             logger.info("A total of " + productsToUpdate.size() + " product(s) were updated.");
-            writeDateToFile("src/main/java/wavemark/date");
+            writeDateToFile(datePath);
             logger.info("All products up-to date " + currDate);
             
             logger.info("Done");
@@ -107,4 +119,5 @@ public class ESLBulkUpdateTags {
         }
         
     }
+    
 }

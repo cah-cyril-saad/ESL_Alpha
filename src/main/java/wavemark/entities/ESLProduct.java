@@ -1,14 +1,14 @@
 package main.java.wavemark.entities;
 
-public class ESLProduct {
+public class ESLProduct extends BinsetProduct {
     
+    String binsetStatus;
     boolean outOfStockFlg;
     boolean expiryRiskFlg;
-    boolean expirationFlg;
-    private String binSetStatus;
+    boolean expirationFlag;
     private String itemMasterNumber;
     private String productDescription;
-    private String binSetNumber;
+    private String hospitalId;
     private int displayBinSetNumber;
     private int quantity;
     private String modelNumber;
@@ -17,14 +17,13 @@ public class ESLProduct {
     private String orderDateBinA;
     private String orderDateBinB;
     private String orderStatusBinB;
+    
     private String displayAlert;
     private String displaySingleBinBarcode;
     private String binSetFlg;
     
     public ESLProduct() {
     }
-    
-    ;
     
     public ESLProduct(String itemMasterNumber, String productDescription, String binSetNumber, int displayBinSetNumber, int quantity, String modelNumber, String orderStatusBinA, String orderDateBinA, String orderDateBinB, String orderStatusBinB, String binSetFlg) {
         this.itemMasterNumber = itemMasterNumber;
@@ -41,6 +40,84 @@ public class ESLProduct {
     }
     
     
+    public ESLProduct(String binSetNumber, boolean isOutOfStock, boolean expiryRisk, boolean expired) {
+        this.binSetNumber = binSetNumber;
+        this.outOfStockFlg = isOutOfStock;
+        this.expiryRiskFlg = expiryRisk;
+        this.expirationFlag = expired;
+    }
+    
+    
+    public ESLProduct(String itemMasterNumber, String productDescription, String binSetNumber, int displayBinSetNumber, int quantity, String modelNumber, String orderStatusBinA, String orderDateBinA, String orderDateBinB, String orderStatusBinB, String binSetFlg, String hospitalId, String displaySingleBinBarcode, String displayAlert, String binsetStatus, boolean outOfStockFlg, boolean isExpired, boolean isExpiryRisk) {
+        this.itemMasterNumber = itemMasterNumber;
+        this.productDescription = productDescription;
+        this.binSetNumber = binSetNumber;
+        this.displayBinSetNumber = displayBinSetNumber;
+        this.quantity = quantity;
+        this.modelNumber = modelNumber;
+        this.orderStatusBinA = orderStatusBinA;
+        this.orderDateBinA = orderDateBinA;
+        this.orderDateBinB = orderDateBinB;
+        this.orderStatusBinB = orderStatusBinB;
+        this.binSetFlg = binSetFlg;
+        this.hospitalId = hospitalId;
+        this.displaySingleBinBarcode = displaySingleBinBarcode;
+        this.displayAlert = displayAlert;
+        this.binsetStatus = binsetStatus;
+        this.outOfStockFlg = outOfStockFlg;
+        this.expirationFlag = isExpired;
+        this.expiryRiskFlg = isExpiryRisk;
+    }
+    
+    public ESLProduct(String itemMasterNumber, String productDescription, String binSetNumber, int displayBinSetNumber, int quantity, String modelNumber, String orderStatusBinA, String orderDateBinA, String orderDateBinB, String orderStatusBinB, String binSetFlg, String hospitalId, String displaySingleBinBarcode, String displayAlert, String binsetStatus, boolean outOfStockFlg) {
+        this.itemMasterNumber = itemMasterNumber;
+        this.productDescription = productDescription;
+        this.binSetNumber = binSetNumber;
+        this.displayBinSetNumber = displayBinSetNumber;
+        this.quantity = quantity;
+        this.modelNumber = modelNumber;
+        this.orderStatusBinA = orderStatusBinA;
+        this.orderDateBinA = orderDateBinA;
+        this.orderDateBinB = orderDateBinB;
+        this.orderStatusBinB = orderStatusBinB;
+        this.binSetFlg = binSetFlg;
+        this.hospitalId = hospitalId;
+        this.displaySingleBinBarcode = displaySingleBinBarcode;
+        this.displayAlert = displayAlert;
+        this.binsetStatus = binsetStatus;
+        this.outOfStockFlg = outOfStockFlg;
+    }
+    
+    public boolean getExpirationFlag() {
+        return expirationFlag;
+    }
+    
+    public void setExpirationFlag(boolean expirationFlag) {
+        this.expirationFlag = expirationFlag;
+    }
+    
+    
+    @Override public String toString() {
+        return "ESLProduct{" + "outOfStockFlg=" + outOfStockFlg + ", expiryRiskFlg=" + expiryRiskFlg + ", expiryRiskFlg=" + expiryRiskFlg + ", binSetStatus='" + binsetStatus + '\'' + ", itemMasterNumber='" + itemMasterNumber + '\'' + ", productDescription='" + productDescription + '\'' + ", binSetNumber='" + binSetNumber + '\'' + ", hospitalId='" + hospitalId + '\'' + ", displayBinSetNumber=" + displayBinSetNumber + ", quantity=" + quantity + ", modelNumber='" + modelNumber + '\'' + ", orderStatusBinA='" + orderStatusBinA + '\'' + ", orderDateBinA='" + orderDateBinA + '\'' + ", orderDateBinB='" + orderDateBinB + '\'' + ", orderStatusBinB='" + orderStatusBinB + '\'' + ", displayAlert='" + displayAlert + '\'' + ", displaySingleBinBarcode='" + displaySingleBinBarcode + '\'' + ", binSetFlg='" + binSetFlg + '\'' + '}';
+    }
+    
+    
+    public boolean getExpiryRiskFlg() {
+        return expiryRiskFlg;
+    }
+    
+    public void setExpiryRiskFlg(boolean expiryRiskFlg) {
+        this.expiryRiskFlg = expiryRiskFlg;
+    }
+    
+    public String getHospitalId() {
+        return hospitalId;
+    }
+    
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+    
     public String getOrderDateBinB() {
         return orderDateBinB;
     }
@@ -50,11 +127,11 @@ public class ESLProduct {
     }
     
     public String getBinSetStatus() {
-        return binSetStatus;
+        return binsetStatus;
     }
     
     public void setBinSetStatus(String binSetStatus) {
-        this.binSetStatus = binSetStatus;
+        this.binsetStatus = binSetStatus;
     }
     
     public String getItemMasterNumber() {
@@ -73,13 +150,6 @@ public class ESLProduct {
         this.productDescription = productDescription;
     }
     
-    public String getBinSetNumber() {
-        return binSetNumber;
-    }
-    
-    public void setBinSetNumber(String binSetNumber) {
-        this.binSetNumber = binSetNumber;
-    }
     
     public int getDisplayBinSetNumber() {
         return displayBinSetNumber;
@@ -137,21 +207,6 @@ public class ESLProduct {
         this.outOfStockFlg = outOfStockFlg;
     }
     
-    public boolean isExpiryRiskFlg() {
-        return expiryRiskFlg;
-    }
-    
-    public void setExpiryRiskFlg(boolean expiryRiskFlg) {
-        this.expiryRiskFlg = expiryRiskFlg;
-    }
-    
-    public boolean isExpirationFlg() {
-        return expirationFlg;
-    }
-    
-    public void setExpirationFlg(boolean expirationFlg) {
-        this.expirationFlg = expirationFlg;
-    }
     
     public String getDisplayAlert() {
         return displayAlert;
@@ -177,25 +232,4 @@ public class ESLProduct {
         this.binSetFlg = binSetFlg;
     }
     
-    @Override public String toString() {
-        return "ESLProduct{" +
-               "outOfStockFlg=" + outOfStockFlg +
-               ", expiryRiskFlg=" + expiryRiskFlg +
-               ", expirationFlg=" + expirationFlg +
-               ", binSetStatus='" + binSetStatus + '\'' +
-               ", itemMasterNumber='" + itemMasterNumber + '\'' +
-               ", productDescription='" + productDescription + '\'' +
-               ", binSetNumber='" + binSetNumber + '\'' +
-               ", displayBinSetNumber=" + displayBinSetNumber +
-               ", quantity=" + quantity +
-               ", modelNumber='" + modelNumber + '\'' +
-               ", orderStatusBinA='" + orderStatusBinA + '\'' +
-               ", orderDateBinA='" + orderDateBinA + '\'' +
-               ", orderDateBinB='" + orderDateBinB + '\'' +
-               ", orderStatusBinB='" + orderStatusBinB + '\'' +
-               ", displayAlert='" + displayAlert + '\'' +
-               ", displaySingleBinBarcode='" + displaySingleBinBarcode + '\'' +
-               ", binSetFlg='" + binSetFlg + '\'' +
-               '}';
-    }
 }

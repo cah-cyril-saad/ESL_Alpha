@@ -11,7 +11,32 @@ public class AppProduct {
     private String productDescription;
     private String endpointProductName;
     private String binsetNumber;
+    private String hospitalId;
     private int logum;
+    
+    @Override public String toString() {
+        return "AppProduct{" +
+               "itemMasterNumber='" + itemMasterNumber + '\'' +
+               ", modelNumber='" + modelNumber + '\'' +
+               ", productDescription='" + productDescription + '\'' +
+               ", endpointProductName='" + endpointProductName + '\'' +
+               ", binsetNumber='" + binsetNumber + '\'' +
+               ", hospitalId='" + hospitalId + '\'' +
+               ", logum=" + logum +
+               ", binsetFlag=" + binsetFlag +
+               ", status='" + status + '\'' +
+               ", bins=" + Arrays.toString(bins) +
+               '}';
+    }
+    
+    public String getHospitalId() {
+        return hospitalId;
+    }
+    
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+    
     private int binsetFlag;
     private String status;
     private Bin[] bins;
@@ -19,29 +44,17 @@ public class AppProduct {
     public AppProduct() {
     }
     
-    public AppProduct(String itemMasterNumber, String modelNumber, String productDescription, String endpointProductName, String binsetNumber, int logum, int binsetFlag, Bin[] bins, String status) {
+    public AppProduct(String itemMasterNumber, String modelNumber, String productDescription, String endpointProductName, String binsetNumber, String hospitalId, int logum, int binsetFlag, Bin[] bins, String status) {
         this.itemMasterNumber = itemMasterNumber;
         this.modelNumber = modelNumber;
         this.productDescription = productDescription;
         this.endpointProductName = endpointProductName;
         this.binsetNumber = binsetNumber;
+        this.hospitalId = hospitalId;
         this.logum = logum;
         this.binsetFlag = binsetFlag;
         this.bins = bins;
         this.status = status;
-    }
-    
-    @Override public String toString() {
-        return "Product{" +
-               "itemMasterNumber='" + itemMasterNumber + '\'' +
-               ", modelNumber='" + modelNumber + '\'' +
-               ", productDescription='" + productDescription + '\'' +
-               ", endpointProductName='" + endpointProductName + '\'' +
-               ", binsetNumber='" + binsetNumber + '\'' +
-               ", logum=" + logum +
-               ", binsetFlag=" + binsetFlag +
-               ", bins=" + Arrays.toString(bins) +
-               '}';
     }
     
     public String getItemMasterNumber() {

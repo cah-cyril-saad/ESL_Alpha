@@ -43,7 +43,39 @@ public class EntityHandler {
         result.setOrderDateBinB(resolveDisplayDate(result.getOrderStatusBinB(), binB.getRequisitionDate()));
         result.setOutOfStockFlg(resolveOutOfStockFlag(product.getBins()));
         result.setDisplayAlert(resolveDisplayAlert(result.isOutOfStockFlg()));
+        
+        result.setHospitalId("HOSP_ID");
+        //TODO: these fields should be handled by second WS
+        //        result.setExpiryRiskFlg(resolveExpiryRiskFlag(product));
+        //        result.setExpirationFlag(resolveExpirationFlag(product));
+        //TODO: what to do if is expired, or risk of expiry???
+        result.setDisplaySingleBinBarcode(product.getBins()[0].getBinSerialNumber());
+        result.setBinSetStatus(product.getStatus());
         return result;
+    }
+    
+    private static boolean resolveExpirationFlag(AppProduct product) {
+        Bin[] bins = product.getBins();
+        boolean isOutOfStock = resolveOutOfStockFlag(bins);
+        
+        if (isOutOfStock) {
+            return false;
+        }
+        
+        return bins[0].getExpirationFlag().equals("E");
+        
+    }
+    
+    private static boolean resolveExpiryRiskFlag(AppProduct product) {
+        Bin[] bins = product.getBins();
+        boolean isOutOfStock = resolveOutOfStockFlag(bins);
+        
+        if (isOutOfStock) {
+            return false;
+        }
+        
+        return bins[0].getExpirationFlag().equals("R");
+        
     }
     
     private static String resolveBinSetFlag(int binsetFlag) {
@@ -58,7 +90,7 @@ public class EntityHandler {
         return outOfStockFlg ? "Out of Stock" : "";
     }
     
-    private static boolean resolveOutOfStockFlag(Bin[] bins) {
+    public static boolean resolveOutOfStockFlag(Bin[] bins) {
         
         return bins[0].getState().equals(RequisitionStatus.EMPTY.toString()) && bins[1].getState().equals(RequisitionStatus.EMPTY.toString());
     }
@@ -98,7 +130,7 @@ public class EntityHandler {
     public static JsonNode translateESLProductToJsonString(ESLProduct product) throws JsonProcessingException {
         Map<String, String> data = new HashMap<>();
         //TODO: set vars static final class
-        data.put("HOSPITAL_ID", "");
+        data.put("HOSPITAL_ID", "HOSP_ID");
         data.put("BINSET_NUMBER", product.getBinSetNumber());
         data.put("ITEM_MASTER_NUMBER", product.getItemMasterNumber());
         data.put("PRODUCT_DESCRIPTION", product.getProductDescription());
@@ -108,17 +140,31 @@ public class EntityHandler {
         data.put("DISPLAY_SINGLE_BIN_BARCODE", product.getDisplaySingleBinBarcode());
         data.put("DISPLAY_BINSET_NUMBER", String.valueOf(product.getDisplayBinSetNumber()));
         data.put("MODEL_NUMBER", product.getModelNumber());
-        
         data.put("ORDER_STATUS_BIN_A", product.getOrderStatusBinA());
         data.put("ORDER_DATE_BIN_A", product.getOrderDateBinA());
-        
         data.put("ORDER_STATUS_BIN_B", product.getOrderStatusBinB());
         data.put("ORDER_DATE_BIN_B", product.getOrderDateBinB());
+        if (product.getDisplayAlert().equalsIgnoreCase("Out of Stock") || StringUtils.isBlank(product.getDisplayAlert())) {
+            data.put("DISPLAY_ALERT", product.getDisplayAlert());
+        }
+        data.put("OUT_OF_STOCK_FLG", String.valueOf(product.isOutOfStockFlg()).toUpperCase());
+        //TODO: get expiry risk flag
+        //data.put("EXPIRATION_FLG", String.valueOf(product.getExpiryRiskFlg()));
+        //data.put("EXPIRY_RISK_FLG", "FALSE");
         
+        EslRemoteEntity remoteEslProduct = new EslRemoteEntity(product.getBinSetNumber(), product.getProductDescription(), "", data);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        
+        return mapper.valueToTree(remoteEslProduct);
+    }
+    
+    public static JsonNode createExpiryDataNode(ESLProduct product) {
+        Map<String, String> data = new HashMap<>();
         data.put("DISPLAY_ALERT", product.getDisplayAlert());
-        data.put("EXPIRATION_FLG", "FALSE");
-        data.put("EXPIRY_RISK_FLG", "FALSE");
-        data.put("OUT_OF_STOCK_FLG", "FALSE");
+        data.put("OUT_OF_STOCK_FLG", product.getDisplayAlert().equalsIgnoreCase("out of stock") ? "TRUE" : "FALSE");
+        data.put("EXPIRATION_FLG", String.valueOf(product.getExpirationFlag()).toUpperCase());
+        data.put("EXPIRY_RISK_FLG", String.valueOf(product.getExpiryRiskFlg()).toUpperCase());
         
         EslRemoteEntity remoteEslProduct = new EslRemoteEntity(product.getBinSetNumber(), product.getProductDescription(), "", data);
         
@@ -130,14 +176,15 @@ public class EntityHandler {
     public static boolean compareReceivedProductFromAppToProductInDaatabase(ESLProduct product1, ESLProduct product2) {
         //TODO: add hospital ID, define product comparator, java 8 stream comparators (a, b) -> return a.quantity > b.quantity;
         
-        return !(product1.getItemMasterNumber().equals(product2.getItemMasterNumber()) && product1.getBinSetNumber().equals(product2.getBinSetNumber()) && product1.getProductDescription().equals(product2.getProductDescription()) && product1.getQuantity() == product2.getQuantity() && product1.getModelNumber().equals(product2.getModelNumber()) && product1.getDisplayBinSetNumber() == product2.getDisplayBinSetNumber() && product1.getOrderDateBinA().equals(product2.getOrderDateBinA()) && product1.getOrderDateBinB().equals(product2.getOrderDateBinB()) && product1.getOrderStatusBinA().equals(product2.getOrderStatusBinA()) && product1.getOrderStatusBinB().equals(product2.getOrderStatusBinB()));
+        return !(product1.getItemMasterNumber().equals(product2.getItemMasterNumber()) && product1.getBinSetNumber().equals(product2.getBinSetNumber()) && product1.getProductDescription().equals(product2.getProductDescription()) && product1.getQuantity() == product2.getQuantity() && product1.getModelNumber().equals(product2.getModelNumber()) && product1.getDisplayBinSetNumber() == product2.getDisplayBinSetNumber() && product1.getOrderDateBinA().equals(product2.getOrderDateBinA()) && product1.getOrderDateBinB().equals(product2.getOrderDateBinB()) && product1.getOrderStatusBinA().equals(product2.getOrderStatusBinA()) && product1.getOrderStatusBinB().equals(product2.getOrderStatusBinB())
+                 && (product1.isOutOfStockFlg() == product2.isOutOfStockFlg()) && product1.getHospitalId().equals(product2.getHospitalId()) && product1.getDisplaySingleBinBarcode().equals(product2.getDisplaySingleBinBarcode()) && product1.getDisplayAlert().equals(product2.getDisplayAlert()) && product1.getBinSetStatus().equals(product2.getBinSetStatus()));
         
     }
     
     public static Map<Boolean, List<ESLProduct>> partitionByAvailabilityInDatabase(Connection cnx, List<ESLProduct> eslProducts) {
         return eslProducts.stream().collect(Collectors.partitioningBy(product -> {
             try {
-                return DatabaseUtilities.productAlreadyExists(cnx, product);
+                return DatabaseUtilities.productAlreadyExists(cnx, product.getBinSetNumber());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

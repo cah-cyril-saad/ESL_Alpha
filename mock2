@@ -1,0 +1,17 @@
+[
+  {
+    "binSetNumber": "MMRN000725",
+    "bins": [
+      {
+        "binSerialNumber": "MMRN000725A",
+        "expirationDate": null,
+        "expirationFlag": "R"
+      },
+      {
+        "binSerialNumber": "MMRN000725B",
+        "expirationDate": null,
+        "expirationFlag": "E"
+      }
+    ]
+  }
+]

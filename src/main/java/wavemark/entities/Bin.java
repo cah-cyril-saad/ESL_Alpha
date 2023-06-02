@@ -10,18 +10,44 @@ public class Bin {
     String requisitionDate;
     String requisitionProductStatus;
     String requisitionProductPo;
-    String binSerialnumber;
+    String binSerialNumber;
+    String expirationFlag;
+    String expirationDate;
+    
+    public String getBinSerialNumber() {
+        return binSerialNumber;
+    }
+    
+    public void setBinSerialNumber(String binSerialNumber) {
+        this.binSerialNumber = binSerialNumber;
+    }
+    
+    public String getExpirationFlag() {
+        return expirationFlag;
+    }
+    
+    public void setExpirationFlag(String expirationFlag) {
+        this.expirationFlag = expirationFlag;
+    }
+    
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+    
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
     
     public Bin() {
     }
     
-    public Bin(String requisitionStatus, String state, String requisitionDate, String requisitionProductStatus, String requisitionProductPo, String binSerialnumber) {
+    public Bin(String requisitionStatus, String state, String requisitionDate, String requisitionProductStatus, String requisitionProductPo, String binSerialNumber) {
         this.requisitionStatus = requisitionStatus;
         this.state = state;
         this.requisitionDate = requisitionDate;
         this.requisitionProductStatus = requisitionProductStatus;
         this.requisitionProductPo = requisitionProductPo;
-        this.binSerialnumber = binSerialnumber;
+        this.binSerialNumber = binSerialNumber;
     }
     
     public String getRequisitionStatus() {
@@ -64,16 +90,6 @@ public class Bin {
         this.requisitionProductPo = requisitionProductPo;
     }
     
-    public String getBinSerialnumber() {
-        return binSerialnumber;
-    }
-    
-    ;
-    
-    public void setBinSerialnumber(String binSerialnumber) {
-        this.binSerialnumber = binSerialnumber;
-    }
-    
     @Override public String toString() {
         return "Bin{" +
                "requisitionStatus='" + requisitionStatus + '\'' +
@@ -81,7 +97,9 @@ public class Bin {
                ", requisitionDate='" + requisitionDate + '\'' +
                ", requisitionProductStatus='" + requisitionProductStatus + '\'' +
                ", requisitionProductPo='" + requisitionProductPo + '\'' +
-               ", binSerialnumber='" + binSerialnumber + '\'' +
+               ", binSerialNumber='" + binSerialNumber + '\'' +
+               ", expirationFlag='" + expirationFlag + '\'' +
+               ", expirationDate='" + expirationDate + '\'' +
                '}';
     }
 }

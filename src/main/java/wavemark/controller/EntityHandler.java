@@ -54,29 +54,6 @@ public class EntityHandler {
         return result;
     }
     
-    private static boolean resolveExpirationFlag(AppProduct product) {
-        Bin[] bins = product.getBins();
-        boolean isOutOfStock = resolveOutOfStockFlag(bins);
-        
-        if (isOutOfStock) {
-            return false;
-        }
-        
-        return bins[0].getExpirationFlag().equals("E");
-        
-    }
-    
-    private static boolean resolveExpiryRiskFlag(AppProduct product) {
-        Bin[] bins = product.getBins();
-        boolean isOutOfStock = resolveOutOfStockFlag(bins);
-        
-        if (isOutOfStock) {
-            return false;
-        }
-        
-        return bins[0].getExpirationFlag().equals("R");
-        
-    }
     
     private static String resolveBinSetFlag(int binsetFlag) {
         return binsetFlag == 0 ? "2BK" : "1BK";
@@ -91,11 +68,14 @@ public class EntityHandler {
     }
     
     public static boolean resolveOutOfStockFlag(Bin[] bins) {
-        
-        return bins[0].getState().equals(RequisitionStatus.EMPTY.toString()) && bins[1].getState().equals(RequisitionStatus.EMPTY.toString());
+        String statusA = bins[0].getState();
+        String statusB = bins.length == 1 ? RequisitionStatus.EMPTY.toString() : bins[1].getState();
+        return statusA.equals(RequisitionStatus.EMPTY.toString()) && statusB.equals(RequisitionStatus.EMPTY.toString());
     }
     
     private static String resolveOrderBinStatus(Bin bin) {
+        if(bin == null)
+            return "";
         String binState = bin.getState();
         boolean isEmpty = StringUtils.isBlank(binState);
         boolean isFilled = !isEmpty && binState.equals(RequisitionStatus.FILLED.toString());
@@ -140,9 +120,9 @@ public class EntityHandler {
         data.put("DISPLAY_SINGLE_BIN_BARCODE", product.getDisplaySingleBinBarcode());
         data.put("DISPLAY_BINSET_NUMBER", String.valueOf(product.getDisplayBinSetNumber()));
         data.put("MODEL_NUMBER", product.getModelNumber());
-        data.put("ORDER_STATUS_BIN_A", product.getOrderStatusBinA());
+        data.put("ORDER_STATUS_BIN_A", product.getOrderStatusBinA().toLowerCase());
         data.put("ORDER_DATE_BIN_A", product.getOrderDateBinA());
-        data.put("ORDER_STATUS_BIN_B", product.getOrderStatusBinB());
+        data.put("ORDER_STATUS_BIN_B", product.getOrderStatusBinB().toLowerCase());
         data.put("ORDER_DATE_BIN_B", product.getOrderDateBinB());
         if (product.getDisplayAlert().equalsIgnoreCase("Out of Stock") || StringUtils.isBlank(product.getDisplayAlert())) {
             data.put("DISPLAY_ALERT", product.getDisplayAlert());

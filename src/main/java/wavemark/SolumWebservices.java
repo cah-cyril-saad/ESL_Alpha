@@ -63,10 +63,10 @@ public class SolumWebservices {
         RequestParam[] requestParams = new RequestParam[1];
         RequestParam deviceIdParam = new RequestParam("fromDate", date, RequestParam.REQUEST_PARAM_TYPE_QUERY_PARAM);
         requestParams[0] = deviceIdParam;
-        //            AppProduct[] bins = SolumWebservices.getEslBins("May 11, 2023 12:02 PM GMT+3");
-//        return restProxy.call(requestParams, AppProduct[].class, HttpRestCaller.REQUEST_METHOD_GET, null, null, 3, 1, true);
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File("C:\\Development\\Wavemark\\EslResearchAndDevelopment\\mock"), AppProduct[].class);
+        
+        return restProxy.call(requestParams, AppProduct[].class, HttpRestCaller.REQUEST_METHOD_GET, null, null, 3, 1, true);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        return objectMapper.readValue(new File("C:\\Development\\Wavemark\\EslResearchAndDevelopment\\mock"), AppProduct[].class);
     }
     
     public static String getSolumAccessToken(String username, String password) throws IOException {

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
     
-    private static final String url = "jdbc:sqlite:Esl.db";
+    private static final String url = "jdbc:sqlite:" + System.getenv("ESL_HOME") + File.separator + "Esl.db";
     private static final String user = "wavemark";
     private static final String password = "wavemark";
     

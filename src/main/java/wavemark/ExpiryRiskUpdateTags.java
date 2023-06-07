@@ -6,25 +6,28 @@ import com.wavemark.wmrestlib.caller.HttpRestCaller;
 import com.wavemark.wmrestlib.entity.RequestParam;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import main.java.wavemark.controller.ConnectionManager;
 import main.java.wavemark.controller.DatabaseUtilities;
 import main.java.wavemark.entities.ESLProduct;
 import main.java.wavemark.entities.ExpiredBin;
 import main.java.wavemark.entities.ExpiredBinset;
 
-public class Sandbox {
+public class ExpiryRiskUpdateTags {
     
     public static void main(String[] args) throws Exception {
         Logger logger;
         logger = Logger.getLogger("MyLog2");
         FileHandler fh;
         try (Connection cnx = ConnectionManager.connect()) {
-            fh = new FileHandler("expiry.log");
+            fh = new FileHandler(System.getenv("ESL_HOME") + File.separator + "expiry.log", true);
             logger.addHandler(fh);
             WardenTokenProvider.getInstance().initializeWardenTokenConfigurations("InterfaceDevice", "QUer775N4nVNDrn9G9ty8K8Ht45XrfjSUaWfT9f9", "https://testonline.wavemark.net", "ESL101", "42:01:0A:33:23:57");
             WardenTokenProvider.getInstance().refreshWardenToken();
@@ -37,13 +40,18 @@ public class Sandbox {
             
             ObjectMapper objectMapper = new ObjectMapper();
 //            ExpiredBinset[] products = objectMapper.readValue(new File("C:\\Development\\Wavemark\\EslResearchAndDevelopment\\mock2"), ExpiredBinset[].class);
-    
             ExpiredBinset[] products = restProxy.call(requestParams, ExpiredBinset[].class, HttpRestCaller.REQUEST_METHOD_GET, null, null, 3, 1, true);
-//            logger.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(products));
-            
+            logger.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(products));
+            List<ExpiredBinset> filteredProds = Arrays.stream(products).filter(product -> {
+                try {
+                    return DatabaseUtilities.productAlreadyExists(cnx, product.getBinSetNumber());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }).collect(Collectors.toList());
             HashMap<String, String> displayAlerts = DatabaseUtilities.fetchAllProductsInDB(cnx);
             
-            HashMap<String, String> displayAlertsToUpdate = checkForExpiryChanges(products, displayAlerts);
+            HashMap<String, String> displayAlertsToUpdate = checkForExpiryChanges(filteredProds, displayAlerts);
             
             DatabaseUtilities.updateDisplayAlerts(cnx, displayAlertsToUpdate);
             List<ESLProduct> prods = DatabaseUtilities.getProds(new ArrayList<>(displayAlertsToUpdate.keySet()), cnx);
@@ -60,7 +68,7 @@ public class Sandbox {
         }
     }
     
-    private static HashMap<String, String> checkForExpiryChanges(ExpiredBinset[] products, HashMap<String, String> binsetToDisplayAlert) {
+    private static HashMap<String, String> checkForExpiryChanges(List<ExpiredBinset> products, HashMap<String, String> binsetToDisplayAlert) {
         HashMap<String, String> displayAlertsToUpdate = new HashMap<>();
         
         String currentDisplayAlert;

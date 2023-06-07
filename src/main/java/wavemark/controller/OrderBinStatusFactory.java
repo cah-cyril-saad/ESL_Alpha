@@ -13,20 +13,9 @@ public class OrderBinStatusFactory {
         boolean isBackOrderedOrderBinStatus;
         boolean isOrderedBinStatus;
         
-        String requisitionStatus = bin.getRequisitionStatus();
-        String requisitionProductStatus = bin.getRequisitionProductStatus();
-        String requisitionProductPO = bin.getRequisitionProductPo();
-        
-        //        isBlankOrderBinStatus = requisitionStatus.equals(RequisitionStatus.NEW.toString());
-        //        isBlankOrderBinStatus |= requisitionStatus.equals(RequisitionStatus.RELEASED.toString());
-        //        isBlankOrderBinStatus |= (requisitionStatus.equals(RequisitionStatus.SUBMITTED.toString()) && !StringUtils.isBlank(requisitionProductPO));
-        //        isBlankOrderBinStatus |= (requisitionStatus.equals(RequisitionStatus.OPEN.toString()) && requisitionProductStatus.equals(RequisitionStatus.OPEN.toString()) && StringUtils.isBlank(requisitionProductPO));
-        //        isBlankOrderBinStatus |= requisitionStatus.equals(RequisitionStatus.CLOSED.toString());
-        //        isBlankOrderBinStatus |= requisitionStatus.equals(RequisitionStatus.COMPLETED.toString());
-        //
-        //        if (isBlankOrderBinStatus) {
-        //            return "";
-        //        }
+        String requisitionStatus = bin.getRequisitionStatus() == null ? "" : bin.getRequisitionStatus();
+        String requisitionProductStatus = bin.getRequisitionProductStatus() == null ? "" : bin.getRequisitionProductStatus();
+        String requisitionProductPO = bin.getRequisitionProductPo() == null ? "" : bin.getRequisitionProductPo();
         
         isBackOrderedOrderBinStatus = requisitionStatus.equals(RequisitionStatus.OPEN.toString()) && requisitionProductStatus.equals(RequisitionProductStatus.BACKORDERED.toString());
         isBackOrderedOrderBinStatus |= requisitionStatus.equals(RequisitionStatus.BACKORDERED.toString());

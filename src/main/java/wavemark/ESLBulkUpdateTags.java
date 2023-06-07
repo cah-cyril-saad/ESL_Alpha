@@ -76,7 +76,7 @@ public class ESLBulkUpdateTags {
         FileHandler fh;
         String datePath = System.getenv("ESL_HOME") + "/date";
         try (Connection cnx = ConnectionManager.connect()) {
-            fh = new FileHandler("esl.log");
+            fh = new FileHandler(System.getenv("ESL_HOME") + File.separator + "esl.log", true);
             
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();

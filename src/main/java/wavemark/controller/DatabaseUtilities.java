@@ -151,10 +151,10 @@ public class DatabaseUtilities {
     
     public static void updateExistingProducts(Connection cnx, List<ESLProduct> products) throws SQLException {
         for (ESLProduct product : products) {
-            
+
             String query = (product.isOutOfStockFlg() || StringUtils.isBlank(product.getDisplayAlert()) ? "UPDATE binsets SET product_description = ?, quantity = ?, bin_set_flg = ?, " + "model_number = ?, display_binset_number = ?, requisition_date_bin_a = ?, requisition_date_bin_b = ?, order_status_bin_a = ?, order_status_bin_b = ?, item_master_number = ?, out_of_stock_flg = ?, hospital_id = ?, display_single_bin_barcode = ?, display_alert = ?, binset_status = ? WHERE binset_number = ?;" : "UPDATE binsets SET product_description = ?, quantity = ?, bin_set_flg = ?, " + "model_number = ?, display_binset_number = ?, requisition_date_bin_a = ?, requisition_date_bin_b = ?, order_status_bin_a = ?, order_status_bin_b = ?, item_master_number = ?, out_of_stock_flg = ?, hospital_id = ?, display_single_bin_barcode = ?, binset_status = ? WHERE binset_number = ?;");
             try (PreparedStatement statement = cnx.prepareStatement(query)) {
-                
+
                 statement.setString(1, product.getProductDescription());
                 statement.setInt(2, product.getQuantity());
                 statement.setString(3, product.getBinSetFlg());
@@ -175,7 +175,7 @@ public class DatabaseUtilities {
                 }
                 statement.setString(index++, product.getBinSetStatus());
                 statement.setString(index, product.getBinSetNumber());
-                
+
                 statement.executeUpdate();
             }
         }

@@ -1,27 +1,27 @@
 [
     {
-        "itemMasterNumber": "92849",
+        "itemMasterNumber": "22222",
         "modelNumber": "48NLO-DBX",
-        "productDescription": "1X18 NON-LATEX TOURNIQUET BANDS, ORANGE LATEX-FREE 48NLO-DBX",
+        "productDescription": "1X218 NON-LATEX TOURNIQUET BANDS, ORANGE LATEX-FREE 48NLO-DBX",
         "endpointProductName": "BAND ORANGE 18X1IN IDENTIFICATION TOURNIQUET LATEX FREE",
         "binsetNumber": "MMRN000725",
         "logum": 100,
         "binsetFlag": 0,
         "bins": [
             {
-                "state": "FILLED",
+                "state": "EMPTY",
                 "requisitionDate": "2023-05-23T05:49:28Z",
-                "requisitionProductStatus": null,
+                "requisitionProductStatus": "BACKORDERED",
                 "requisitionProductPo": null,
-                "binSerialNumber": "MMRN000725A",
+                "binSerialNumber": "MMRN000725B",
                 "requisitionStatus": "OPEN"
             },
             {
-                "state": "FILLED",
+                "state": "EMPTY",
                 "requisitionDate": "2023-05-23T05:49:28Z",
-                "requisitionProductStatus": null,
-                "requisitionProductPo": null,
-                "binSerialNumber": "MMRN000725B",
+                "requisitionProductStatus": "BACKORDERED",
+                "requisitionProductPo": "123",
+                "binSerialNumber": "MMRN000725A",
                 "requisitionStatus": "OPEN"
             }
         ],

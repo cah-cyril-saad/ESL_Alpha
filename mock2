@@ -5,12 +5,12 @@
       {
         "binSerialNumber": "MMRN000725A",
         "expirationDate": null,
-        "expirationFlag": "R"
+        "expirationFlag": "E"
       },
       {
         "binSerialNumber": "MMRN000725B",
         "expirationDate": null,
-        "expirationFlag": "E"
+        "expirationFlag": "N"
       }
     ]
   }

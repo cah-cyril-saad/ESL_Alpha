@@ -1,0 +1,42 @@
+Index: src/main/java/wavemark/ESLBulkUpdateTags.java
+===================================================================
+diff --git a/src/main/java/wavemark/ESLBulkUpdateTags.java b/src/main/java/main/java/wavemark/ESLBulkUpdateTags.java
+rename from src/main/java/wavemark/ESLBulkUpdateTags.java
+rename to src/main/java/main/java/wavemark/ESLBulkUpdateTags.java
+--- a/src/main/java/wavemark/ESLBulkUpdateTags.java	
++++ b/src/main/java/main/java/wavemark/ESLBulkUpdateTags.java	
+@@ -31,7 +31,7 @@
+             cnx.setAutoCommit(true);
+ 
+             initWardenAuthenticationSettings();
+-            ArrayList<AppProduct> bins = SolumWebservices.getEslBins(System.getenv("ESL_DATE"));
++            ArrayList<AppProduct> bins = main.java.wavemark.SolumWebservices.getEslBins(System.getenv("ESL_DATE"));
+             System.out.println(bins);
+             //TODO: use ArrayList
+             List<ESLProduct> eslProducts = EntityHandler.translateFromAppToESL(bins);
+@@ -43,7 +43,7 @@
+             List<ESLProduct> productsToUpdate = EntityHandler.getProductsToUpdate(cnx, existingProducts.get(true));
+             //
+             DatabaseUtilities.updateExistingProducts(cnx, productsToUpdate);
+-            SolumWebservices.updateSolumProducts(productsToUpdate);
++            main.java.wavemark.SolumWebservices.updateSolumProducts(productsToUpdate);
+             //
+             //            System.out.printf("Updated %s product(s) \n", productsToUpdate.size());
+             System.out.println("Done");
+Index: .idea/modules.xml
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+--- a/.idea/modules.xml	
++++ b/.idea/modules.xml	
+@@ -2,7 +2,9 @@
+ <project version="4">
+   <component name="ProjectModuleManager">
+     <modules>
+-      <module fileurl="file://$PROJECT_DIR$/EslResearchAndDevelopment.iml" filepath="$PROJECT_DIR$/EslResearchAndDevelopment.iml" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EslResearchAndDevelopment.iml" filepath="$PROJECT_DIR$/.idea/modules/EslResearchAndDevelopment.iml" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EslResearchAndDevelopment.main.iml" filepath="$PROJECT_DIR$/.idea/modules/EslResearchAndDevelopment.main.iml" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EslResearchAndDevelopment.test.iml" filepath="$PROJECT_DIR$/.idea/modules/EslResearchAndDevelopment.test.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file

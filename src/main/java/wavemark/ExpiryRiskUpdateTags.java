@@ -4,44 +4,37 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wavemark.wmrestlib.authenticator.WardenTokenProvider;
 import com.wavemark.wmrestlib.caller.HttpRestCaller;
 import com.wavemark.wmrestlib.entity.RequestParam;
-import java.io.File;
+import io.sentry.Sentry;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import main.java.wavemark.controller.ConnectionManager;
 import main.java.wavemark.controller.DatabaseUtilities;
 import main.java.wavemark.entities.ESLProduct;
 import main.java.wavemark.entities.ExpiredBin;
 import main.java.wavemark.entities.ExpiredBinset;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 
 public class ExpiryRiskUpdateTags {
     
     public static void main(String[] args) throws Exception {
-        Logger logger;
-        logger = Logger.getLogger("MyLog2");
-        FileHandler fh;
+        String store = "WM001";
+        String interfaceConsumer = "ESL101";
+        String interfaceSecret = "42:01:0A:33:23:57";
+        String appUrl = "https://testonline.wavemark.net";
+        
+        Configurator.initialize(null, System.getenv("ESL_HOME") + "/log4j2.xml");
+        
+        Logger logger = LogManager.getLogger("expiry");
+        
         try (Connection cnx = ConnectionManager.connect()) {
-            fh = new FileHandler(System.getenv("ESL_HOME") + File.separator + "expiry.log", true);
-            logger.addHandler(fh);
-            WardenTokenProvider.getInstance().initializeWardenTokenConfigurations("InterfaceDevice", "QUer775N4nVNDrn9G9ty8K8Ht45XrfjSUaWfT9f9", "https://testonline.wavemark.net", "ESL101", "42:01:0A:33:23:57");
-            WardenTokenProvider.getInstance().refreshWardenToken();
-            System.out.println(WardenTokenProvider.getInstance().getAccessToken());
-            String webserviceURI = "https://testonline.wavemark.net/kanban/expiration/binsets";
-            HttpRestCaller restProxy = new HttpRestCaller(webserviceURI, 100000, 100000, null, 0, null);
-            restProxy.printRawResponse(true);
-            restProxy.setContentType("application/json");
-            RequestParam[] requestParams = new RequestParam[0];
-            
-            ObjectMapper objectMapper = new ObjectMapper();
-//            ExpiredBinset[] products = objectMapper.readValue(new File("C:\\Development\\Wavemark\\EslResearchAndDevelopment\\mock2"), ExpiredBinset[].class);
-            ExpiredBinset[] products = restProxy.call(requestParams, ExpiredBinset[].class, HttpRestCaller.REQUEST_METHOD_GET, null, null, 3, 1, true);
-            logger.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(products));
+            ExpiredBinset[] products = getExpiryData(appUrl, interfaceConsumer, interfaceSecret, logger);
             List<ExpiredBinset> filteredProds = Arrays.stream(products).filter(product -> {
                 try {
                     return DatabaseUtilities.productAlreadyExists(cnx, product.getBinSetNumber());
@@ -55,7 +48,7 @@ public class ExpiryRiskUpdateTags {
             
             DatabaseUtilities.updateDisplayAlerts(cnx, displayAlertsToUpdate);
             List<ESLProduct> prods = DatabaseUtilities.getProds(new ArrayList<>(displayAlertsToUpdate.keySet()), cnx);
-            SolumWebservices.updateSolumProductsExpiryData(prods);
+            SolumWebservices.updateSolumProductsExpiryData(prods, store, logger);
             
             if (prods.size() == 0) {
                 logger.info("No products were changed.");
@@ -65,6 +58,10 @@ public class ExpiryRiskUpdateTags {
                 logger.info("Changed the display alert of: " + prod.getBinSetNumber() + " to " + prod.getDisplayAlert());
             }
             
+        } catch (Exception e) {
+            logger.error("There was an error while trying to update ESL's expiry status", e);
+            Sentry.capture(e);
+            throw e;
         }
     }
     
@@ -121,6 +118,27 @@ public class ExpiryRiskUpdateTags {
         
     }
     
-    //            AppProduct[] bins = SolumWebservices.getEslBins("May 11, 2023 12:02 PM GMT+3");
+    private static ExpiredBinset[] getExpiryData(String appUrl, String interfaceConsumer, String interfaceSecret, Logger logger) throws Exception {
+        try {
+            WardenTokenProvider.getInstance().initializeWardenTokenConfigurations("InterfaceDevice", "QUer775N4nVNDrn9G9ty8K8Ht45XrfjSUaWfT9f9", appUrl, interfaceConsumer, interfaceSecret);
+            WardenTokenProvider.getInstance().refreshWardenToken();
+            System.out.println(WardenTokenProvider.getInstance().getAccessToken());
+            String webserviceURI = appUrl + "/kanban/expiration/binsets";
+            HttpRestCaller restProxy = new HttpRestCaller(webserviceURI, 100000, 100000, null, 0, null);
+            restProxy.printRawResponse(true);
+            restProxy.setContentType("application/json");
+            RequestParam[] requestParams = new RequestParam[0];
+            
+            ObjectMapper objectMapper = new ObjectMapper();
+            //            ExpiredBinset[] products = objectMapper.readValue(new File("C:\\Development\\Wavemark\\EslResearchAndDevelopment\\mock2"), ExpiredBinset[].class);
+            ExpiredBinset[] products = restProxy.call(requestParams, ExpiredBinset[].class, HttpRestCaller.REQUEST_METHOD_GET, null, null, 3, 1, true);
+            logger.info("Received expiry data for binsets: \n" + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(products));
+            
+            return products;
+        } catch (Exception e) {
+            logger.error("Failed to download expiry data for binsets from App", e);
+            throw e;
+        }
+    }
 }
 

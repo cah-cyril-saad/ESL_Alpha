@@ -59,7 +59,7 @@ public class Bin {
     }
     
     public String getState() {
-        return state == null ? "" : state;
+        return state == null ? "FILLED" : state;
     }
     
     public void setState(String state) {

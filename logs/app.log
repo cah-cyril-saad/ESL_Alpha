@@ -1,0 +1,11 @@
+2023-07-04 15:53:38 [main] INFO  main.java.wavemark.ESLBulkUpdateTags - Starting ESL application...
+2023-07-04 15:53:42 [main] INFO  main.java.wavemark.ESLBulkUpdateTags - Fetching all binsets from: July 4, 2023 12:11 PM GMT+3
+2023-07-04 15:53:42 [main] INFO  wavemark.wmrestclient - Calling WS 'https://testonline.wavemark.net/kanban/esl/binsets' STARTED
+2023-07-04 15:53:44 [main] INFO  wavemark.wmrestclient - Web service: 'https://testonline.wavemark.net/kanban/esl/binsets' ENDED
+2023-07-04 15:53:44 [main] INFO  main.java.wavemark.ESLBulkUpdateTags - Downloaded the 0 binset(s) from App:
+ [ ]
+2023-07-04 15:53:44 [main] INFO  main.java.wavemark.ESLBulkUpdateTags - Added 0 new product(s).
+2023-07-04 15:53:46 [main] INFO  main.java.wavemark.ESLBulkUpdateTags - Uploading the binsets to Solum: [ ]
+2023-07-04 15:53:46 [main] INFO  main.java.wavemark.ESLBulkUpdateTags - A total of 0 product(s) were updated.
+2023-07-04 15:53:46 [main] INFO  main.java.wavemark.ESLBulkUpdateTags - All products up-to date July 4, 2023 03:53 PM GMT+3
+2023-07-04 15:53:46 [main] INFO  main.java.wavemark.ESLBulkUpdateTags - Done

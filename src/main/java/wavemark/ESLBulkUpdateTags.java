@@ -5,7 +5,6 @@ import com.wavemark.wmrestlib.authenticator.WardenTokenProvider;
 import io.sentry.Sentry;
 import io.sentry.SentryClient;
 import io.sentry.event.User;
-import java.awt.AWTException;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -13,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -71,10 +69,10 @@ public class ESLBulkUpdateTags {
     
     public static void main(String[] args) throws Exception {
         Configurator.initialize(null, System.getenv("ESL_HOME") + "/log4j2.xml");
-        String store = "WM001";
-        String interfaceConsumer = "ESL101";
-        String interfaceSecret = "42:01:0A:33:23:57";
-        String appUrl = "https://testonline.wavemark.net";
+        String store = args[0];
+        String interfaceConsumer = args[1];
+        String interfaceSecret = args[2];
+        String appUrl = args[3];
         Logger logger = LogManager.getLogger("binsets");
         String datePath = System.getenv("ESL_HOME") + "/date";
         System.setProperty("sentry.properties.file", System.getenv("ESL_HOME") + File.separator + "sentry.properties");
@@ -125,7 +123,7 @@ public class ESLBulkUpdateTags {
             Sentry.capture(e);
             throw e;
         }
-
+        
     }
     
 }

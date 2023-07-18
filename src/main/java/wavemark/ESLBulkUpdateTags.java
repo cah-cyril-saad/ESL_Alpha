@@ -45,7 +45,7 @@ public class ESLBulkUpdateTags {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy hh:mm a");
         
-        return currentTime.format(formatter) + " GMT+3";
+        return currentTime.format(formatter) + " GMT+3:00";
         
     }
     
@@ -57,7 +57,7 @@ public class ESLBulkUpdateTags {
             date = Optional.of(lines.findFirst().get());
         }
         
-        return date.orElse(StringUtils.EMPTY);
+        return date.orElse(StringUtils.EMPTY).replace("+","%2b");
     }
     
     private static void writeDateToFile(String path) throws IOException {

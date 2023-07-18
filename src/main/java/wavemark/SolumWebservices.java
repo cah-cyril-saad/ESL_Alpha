@@ -37,9 +37,10 @@ public class SolumWebservices {
                 System.out.println("Updated ESL Product the following binset number: " + product.getBinSetNumber());
             }
             RequestBody body = RequestBody.create(mediaType, array.toString());
+            System.out.println("Solum body:   "  + body );
             Request request = new Request.Builder().url("https://eastus.common.solumesl.com/common/api/v2/common/articles?company=CDH&store=" + store).method("POST", body).addHeader("Authorization", "Bearer " + authToken).addHeader("Content-Type", "application/json").build();
             Response response = client.newCall(request).execute();
-              if (!String.valueOf(response.code()).startsWith("2") && response.code() != 405) {
+            if (!String.valueOf(response.code()).startsWith("2") && response.code() != 405) {
                 throw new Exception("Failed to update ESL's due to an issue calling Solum..." + response.message());
             }
         } catch (Exception e) {

@@ -24,10 +24,10 @@ import org.apache.logging.log4j.core.config.Configurator;
 public class ExpiryRiskUpdateTags {
     
     public static void main(String[] args) throws Exception {
-        String store = "WM001";
-        String interfaceConsumer = "ESL101";
-        String interfaceSecret = "42:01:0A:33:23:57";
-        String appUrl = "https://testonline.wavemark.net";
+        String store = args[0];
+        String interfaceConsumer = args[1];
+        String interfaceSecret = args[2];
+        String appUrl = args[3];
         
         Configurator.initialize(null, System.getenv("ESL_HOME") + "/log4j2.xml");
         

@@ -13,6 +13,9 @@ public class AppProduct {
     private String binsetNumber;
     private String hospitalId;
     private int logum;
+    private int binsetFlag;
+    private String status;
+    private Bin[] bins;
     
     @Override public String toString() {
         return "AppProduct{" +
@@ -35,26 +38,6 @@ public class AppProduct {
     
     public void setHospitalId(String hospitalId) {
         this.hospitalId = hospitalId;
-    }
-    
-    private int binsetFlag;
-    private String status;
-    private Bin[] bins;
-    
-    public AppProduct() {
-    }
-    
-    public AppProduct(String itemMasterNumber, String modelNumber, String productDescription, String endpointProductName, String binsetNumber, String hospitalId, int logum, int binsetFlag, Bin[] bins, String status) {
-        this.itemMasterNumber = itemMasterNumber;
-        this.modelNumber = modelNumber;
-        this.productDescription = productDescription;
-        this.endpointProductName = endpointProductName;
-        this.binsetNumber = binsetNumber;
-        this.hospitalId = hospitalId;
-        this.logum = logum;
-        this.binsetFlag = binsetFlag;
-        this.bins = bins;
-        this.status = status;
     }
     
     public String getItemMasterNumber() {

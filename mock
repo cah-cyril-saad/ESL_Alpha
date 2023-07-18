@@ -1,86 +1,32 @@
 [
     {
-        "itemMasterNumber": "22222",
-        "modelNumber": "48NLO-DBX",
-        "productDescription": "1X218 NON-LATEX TOURNIQUET BANDS, ORANGE LATEX-FREE 48NLO-DBX",
-        "endpointProductName": "BAND ORANGE 18X1IN IDENTIFICATION TOURNIQUET LATEX FREE",
-        "binsetNumber": "MMRN000725",
-        "logum": 100,
+        "itemMasterNumber": "10078790",
+        "modelNumber": "2330",
+        "productDescription": "Electrode EKG Conductive Adhesive",
+        "endpointProductName": "ELECTRODE 3M RED DOT PLASTIC FOAM 3.04X2.03CM 2.03X2.03CM EKG CONDUCTIVE",
+        "binsetNumber": "MMRN0010501",
+        "logum": 12,
         "binsetFlag": 0,
         "bins": [
             {
-                "state": "EMPTY",
-                "requisitionDate": "2023-05-23T05:49:28Z",
-                "requisitionProductStatus": "BACKORDERED",
-                "requisitionProductPo": null,
-                "binSerialNumber": "MMRN000725B",
-                "requisitionStatus": "OPEN"
-            },
-            {
-                "state": "EMPTY",
-                "requisitionDate": "2023-05-23T05:49:28Z",
-                "requisitionProductStatus": "BACKORDERED",
-                "requisitionProductPo": "123",
-                "binSerialNumber": "MMRN000725A",
-                "requisitionStatus": "OPEN"
-            }
-        ],
-        "status": "ACTIVE"
-    },
-    {
-        "itemMasterNumber": "1011835",
-        "modelNumber": "220147",
-        "productDescription": "CultureSwab Liquid Amies Dacron Dbl",
-        "endpointProductName": "SWAB BD CULTURESWAB DACRON LIQUID AMIES MEDIUM CULTURE 2 SHAFT",
-        "binsetNumber": "MMRN007930",
-        "logum": 10,
-        "binsetFlag": 2,
-        "bins": [
-            {
                 "state": "FILLED",
-                "requisitionDate": "2023-04-26T10:46:20Z",
-                "requisitionProductStatus": "COMPLETED",
-                "requisitionProductPo": "CCF23396488",
-                "binSerialNumber": "MMRN007930B",
-                "requisitionStatus": "COMPLETED"
-            },
-            {
-                "state": null,
+                "lastEmptyScan": "2022-12-27T11:38:43Z",
+                "binSerialNumber": "MMRN001050B",
                 "requisitionDate": null,
                 "requisitionProductStatus": null,
                 "requisitionProductPo": null,
-                "binSerialNumber": "MMRN007930A",
+                "requisitionStatus": null
+            },
+            {
+                "state": "FILLED",
+                "lastEmptyScan": "2023-03-23T12:45:00Z",
+                "binSerialNumber": "MMRN001050A",
+                "requisitionDate": null,
+                "requisitionProductStatus": null,
+                "requisitionProductPo": null,
                 "requisitionStatus": null
             }
         ],
         "status": "ACTIVE"
-    },
-    {
-        "itemMasterNumber": "1000052",
-        "modelNumber": "MDS202000",
-        "productDescription": "Cotton Tipped Applicator 6in Sterile 2/Pk",
-        "endpointProductName": "KIT APTIMA COMBO 2 SPECIMEN COLLECTION SWAB 50 TEST KIT APTIMA COMBO 2 SPECIMEN COLLECTION SWAB 50",
-        "binsetNumber": "MMRN000012",
-        "logum": 5,
-        "binsetFlag": 0,
-        "bins": [
-            {
-                "state": "EMPTY",
-                "requisitionDate": "2023-05-02T10:32:44Z",
-                "requisitionProductStatus": "OPEN",
-                "requisitionProductPo": "CCF23415016",
-                "binSerialNumber": "MMRN000012A",
-                "requisitionStatus": "OPEN"
-            },
-            {
-                "state": "FILLED",
-                "requisitionDate": "2022-11-04T10:42:57Z",
-                "requisitionProductStatus": "COMPLETED",
-                "requisitionProductPo": "CCF22820877",
-                "binSerialNumber": "MMRN000012B",
-                "requisitionStatus": "OPEN"
-            }
-        ],
-        "status": "ACTIVE"
-    }
+       }
 ]

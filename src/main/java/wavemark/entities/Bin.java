@@ -7,7 +7,7 @@ public class Bin {
     
     String requisitionStatus;
     String state;
-    String requisitionDate;
+    String lastEmptyScan;
     String requisitionProductStatus;
     String requisitionProductPo;
     String binSerialNumber;
@@ -41,10 +41,10 @@ public class Bin {
     public Bin() {
     }
     
-    public Bin(String requisitionStatus, String state, String requisitionDate, String requisitionProductStatus, String requisitionProductPo, String binSerialNumber) {
+    public Bin(String requisitionStatus, String state, String lastEmptyScan, String requisitionProductStatus, String requisitionProductPo, String binSerialNumber) {
         this.requisitionStatus = requisitionStatus;
         this.state = state;
-        this.requisitionDate = requisitionDate;
+        this.lastEmptyScan = lastEmptyScan;
         this.requisitionProductStatus = requisitionProductStatus;
         this.requisitionProductPo = requisitionProductPo;
         this.binSerialNumber = binSerialNumber;
@@ -66,12 +66,12 @@ public class Bin {
         this.state = state;
     }
     
-    public String getRequisitionDate() {
-        return requisitionDate;
+    public String getLastEmptyScan() {
+        return lastEmptyScan;
     }
     
-    public void setRequisitionDate(String requisitionDate) {
-        this.requisitionDate = requisitionDate;
+    public void setLastEmptyScan(String lastEmptyScan) {
+        this.lastEmptyScan = lastEmptyScan;
     }
     
     public String getRequisitionProductStatus() {
@@ -94,7 +94,7 @@ public class Bin {
         return "Bin{" +
                "requisitionStatus='" + requisitionStatus + '\'' +
                ", state='" + state + '\'' +
-               ", requisitionDate='" + requisitionDate + '\'' +
+               ", requisitionDate='" + lastEmptyScan + '\'' +
                ", requisitionProductStatus='" + requisitionProductStatus + '\'' +
                ", requisitionProductPo='" + requisitionProductPo + '\'' +
                ", binSerialNumber='" + binSerialNumber + '\'' +

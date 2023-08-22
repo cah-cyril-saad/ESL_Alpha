@@ -3,7 +3,7 @@
   <Appenders>
     <!-- Appender 1: RollingFileAppender -->
     <RollingFile name="BinsetsAppender" fileName="${env:ESL_HOME}/binsets.log"
-      filePattern="${env:ESL_HOME}/binsets-%d{yyyy-MM-dd}.log.gz">
+      filePattern="${env:ESL_HOME}/binsets-%d{yyyy-MM-dd}.log">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
       <Policies>
         <TimeBasedTriggeringPolicy/>
@@ -19,7 +19,7 @@
 
     <!-- Appender 3: ExpiryAppender -->
     <RollingFile name="ExpiryAppender" fileName="${env:ESL_HOME}/expiry.log"
-      filePattern="${env:ESL_HOME}/expired-%d{yyyy-MM-dd}.log.gz">
+      filePattern="${env:ESL_HOME}/expired-%d{yyyy-MM-dd}.log">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
       <Policies>
         <TimeBasedTriggeringPolicy/>
@@ -34,6 +34,7 @@
       <AppenderRef ref="BinsetsAppender"/>
       <AppenderRef ref="ConsoleAppender"/>
       <AppenderRef ref="ExpiryAppender"/>
+      <AppenderRef ref="Sentry" level="ERROR"/>
     </Root>
 
     <!-- Logger 2: Custom Logger -->
@@ -48,7 +49,7 @@
     <Logger name="expiry" level="debug" additivity="false">
       <AppenderRef ref="ExpiryAppender"/>
       <AppenderRef ref="ConsoleAppender"/>
-      <AppenderRef ref="Sentry"/>
+      <AppenderRef ref="Sentry" level="ERROR"/>
     </Logger>
 
   </Loggers>

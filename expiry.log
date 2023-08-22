@@ -1,8 +1,0 @@
-2023-07-07 11:57:57 [main] WARN  io.sentry.DefaultSentryClientFactory - No 'stacktrace.app.packages' was configured, this option is highly recommended as it affects stacktrace grouping and display on Sentry. See documentation: https://docs.sentry.io/clients/java/config/#in-application-stack-frames
-2023-07-07 11:57:57 [main] WARN  io.sentry.DefaultSentryClientFactory - No 'stacktrace.app.packages' was configured, this option is highly recommended as it affects stacktrace grouping and display on Sentry. See documentation: https://docs.sentry.io/clients/java/config/#in-application-stack-frames
-2023-07-07 11:57:59 [main] INFO  wavemark.wmrestclient - Calling WS 'https://testonline.wavemark.net/kanban/esl/binsets' STARTED
-2023-07-07 11:58:01 [main] INFO  wavemark.wmrestclient - Web service: 'https://testonline.wavemark.net/kanban/esl/binsets' ENDED
-2023-07-07 11:58:13 [main] WARN  io.sentry.DefaultSentryClientFactory - No 'stacktrace.app.packages' was configured, this option is highly recommended as it affects stacktrace grouping and display on Sentry. See documentation: https://docs.sentry.io/clients/java/config/#in-application-stack-frames
-2023-07-07 11:58:13 [main] WARN  io.sentry.DefaultSentryClientFactory - No 'stacktrace.app.packages' was configured, this option is highly recommended as it affects stacktrace grouping and display on Sentry. See documentation: https://docs.sentry.io/clients/java/config/#in-application-stack-frames
-2023-07-07 11:58:16 [main] INFO  wavemark.wmrestclient - Calling WS 'https://testonline.wavemark.net/kanban/esl/binsets' STARTED
-2023-07-07 11:58:19 [main] INFO  wavemark.wmrestclient - Web service: 'https://testonline.wavemark.net/kanban/esl/binsets' ENDED

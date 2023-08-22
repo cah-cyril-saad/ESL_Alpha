@@ -57,7 +57,7 @@ public class ESLBulkUpdateTags {
             date = Optional.of(lines.findFirst().get());
         }
         
-        return date.orElse(StringUtils.EMPTY).replace("+","%2b");
+        return date.orElse(StringUtils.EMPTY).replace("+", "%2b");
     }
     
     private static void writeDateToFile(String path) throws IOException {
@@ -76,17 +76,16 @@ public class ESLBulkUpdateTags {
         Logger logger = LogManager.getLogger("binsets");
         String datePath = System.getenv("ESL_HOME") + "/date";
         System.setProperty("sentry.properties.file", System.getenv("ESL_HOME") + File.separator + "sentry.properties");
-    
+        
         SentryClient client = Sentry.init();
         client.setEnvironment("dev");
         client.getContext().addTag("ESL", "test");
         client.getContext().addTag("device_id", "test");
-        client.getContext().setUser( new User("esl", "esl", InetAddress.getLocalHost().getHostAddress(), ""));
-
-    
+        client.getContext().setUser(new User("esl", "esl", InetAddress.getLocalHost().getHostAddress(), ""));
+        
         try (Connection cnx = ConnectionManager.connect()) {
             
-            logger.info("Starting ESL application...");
+            logger.info("*************************** Starting ESL application...");
             Sentry.capture(new Exception("testing this error on Sentry"));
             cnx.setAutoCommit(true);
             ObjectMapper objectMapper = new ObjectMapper();
@@ -109,14 +108,19 @@ public class ESLBulkUpdateTags {
             List<ESLProduct> productsToUpdate = EntityHandler.getProductsToUpdate(cnx, oldProducts);
             productsToUpdate.addAll(newProducts);
             DatabaseUtilities.updateExistingProducts(cnx, productsToUpdate);
-            SolumWebservices.updateSolumProducts(productsToUpdate, store, logger);
-            logger.info("Uploading the binsets to Solum: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(productsToUpdate));
-            //System.out.printf("Updated %s product(s) \n", productsToUpdate.size());
-            logger.info("A total of " + productsToUpdate.size() + " product(s) were updated.");
+            
+            if (productsToUpdate.size() <= 0) {
+                logger.info("No ESL Updates are available to be upload to Solum , System will exit.");
+            } else {
+                logger.info("Uploading the binsets to Solum: " + objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(productsToUpdate));
+                SolumWebservices.updateSolumProducts(productsToUpdate, store, logger);
+                logger.info("A total of " + productsToUpdate.size() + " product(s) were updated.");
+            }
+            
             writeDateToFile(datePath);
             logger.info("All products up-to date " + currDate);
             
-            logger.info("Done");
+            logger.info("************************* ESL Job is finished , Existing System **************************************** ");
             System.exit(0);
         } catch (Exception e) {
             logger.error("Error occurred while trying to refresh ESL's...\n", e);

@@ -8,6 +8,6 @@ dependencies {
 
 jar {
     manifest {
-        archiveFileName.set("ESL_A.4.0.jar") // .jar name: name.ja
+        archiveFileName.set("ESL_A.4.1.jar") // .jar name: name.ja
     }
 }
